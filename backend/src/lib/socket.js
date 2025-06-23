@@ -37,5 +37,6 @@ module.exports = {
   io,
   app,
   server,
+  express,
   getReceiverSocketId
 };

@@ -1,4 +1,3 @@
-const express = require("express");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -7,7 +6,7 @@ const path = require("path");
 const authRoutes = require("./routes/auth.route");
 const messageRoutes = require("./routes/message.route");
 const { connectDB } = require("./lib/db");
-const { app, server } = require("./lib/socket");
+const { app, server, express } = require("./lib/socket");
 
 dotenv.config();
 
