@@ -1,3 +1,4 @@
+const express = require("express");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -6,7 +7,7 @@ const path = require("path");
 const authRoutes = require("./routes/auth.route");
 const messageRoutes = require("./routes/message.route");
 const { connectDB } = require("./lib/db");
-const { app, server, express } = require("./lib/socket");
+const { app, server } = require("./lib/socket");
 
 dotenv.config();
 
@@ -25,7 +26,7 @@ if (process.env.NODE_ENV === "production") {
   const frontendDistPath = path.join(__basedir, "../frontend", "dist");
   app.use(express.static(frontendDistPath));
 
-  app.get("*", (req, res) => {
+  app.get("/{*splat}", (req, res) => {
     res.sendFile(path.join(frontendDistPath, "index.html"));
   });
 }
