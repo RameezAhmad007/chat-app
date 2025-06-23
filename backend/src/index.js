@@ -16,12 +16,15 @@ console.log("after start dotenv.config();");
 
 app.use(express.json());
 app.use(cookieParser());
+console.log("after cookieParser", { env: process.env });
 app.use(
   cors({
     origin: process.env.CLIENT_URL,
     credentials: true
   })
 );
+
+console.log("after cors", { env: process.env.NODE_ENV });
 
 if (process.env.NODE_ENV === "production") {
   app.use((req, res, next) => {
