@@ -26,15 +26,16 @@ app.use(
 
 console.log("after cors", { env: process.env.NODE_ENV });
 
+app.use((req, res, next) => {
+  console.log("Incoming request:", req.method, req.originalUrl);
+  next();
+});
+
 if (process.env.NODE_ENV === "production") {
-  app.use((req, res, next) => {
-    console.log("Unhandled request:", req.method, req.originalUrl);
-    next();
-  });
   const frontendDistPath = path.join(__dirname, "../../frontend", "dist");
   app.use(express.static(frontendDistPath));
 
-  app.get("/*", (req, res) => {
+  app.get("*", (req, res) => {
     res.sendFile(path.join(frontendDistPath, "index.html"));
   });
 }
