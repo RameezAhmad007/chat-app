@@ -25,6 +25,7 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
+// ✅ Catch-all only after real API routes
 if (process.env.NODE_ENV === "production") {
   const frontendDistPath = path.join(__basedir, "../frontend", "dist");
   app.use(express.static(frontendDistPath));
@@ -36,10 +37,6 @@ if (process.env.NODE_ENV === "production") {
 
 const PORT = process.env.PORT || 5001;
 
-// app.listen(PORT, () => {
-//   console.log(`Server is running on ${PORT}`);
-//   connectDB();
-// });
 server.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
   connectDB();
