@@ -2,13 +2,12 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const path = require("path");
+
 const authRoutes = require("./routes/auth.route");
 const messageRoutes = require("./routes/message.route");
 const { connectDB } = require("./lib/db");
 const { app, server } = require("./lib/socket");
-const path = require("path");
-
-const __dirname = path.resolve();
 
 dotenv.config();
 
@@ -22,10 +21,10 @@ app.use(
 );
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+    res.sendFile(path.join(__dirname, "../../frontend", "dist", "index.html"));
   });
 }
 
