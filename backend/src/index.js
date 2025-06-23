@@ -22,6 +22,9 @@ app.use(
   })
 );
 
+app.use("/api/auth", authRoutes);
+app.use("/api/messages", messageRoutes);
+
 if (process.env.NODE_ENV === "production") {
   const frontendDistPath = path.join(__basedir, "../frontend", "dist");
   app.use(express.static(frontendDistPath));
@@ -30,9 +33,6 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(frontendDistPath, "index.html"));
   });
 }
-
-app.use("/api/auth", authRoutes);
-app.use("/api/messages", messageRoutes);
 
 const PORT = process.env.PORT || 5001;
 
