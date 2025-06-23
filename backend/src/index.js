@@ -11,6 +11,8 @@ const { app, server } = require("./lib/socket");
 
 dotenv.config();
 
+const __basedir = path.join(__dirname, "..");
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -21,7 +23,7 @@ app.use(
 );
 
 if (process.env.NODE_ENV === "production") {
-  const frontendDistPath = path.join(__dirname, "../frontend", "dist");
+  const frontendDistPath = path.join(__basedir, "../frontend", "dist");
   app.use(express.static(frontendDistPath));
 
   app.get("*", (req, res) => {
