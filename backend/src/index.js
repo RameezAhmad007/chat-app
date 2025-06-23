@@ -24,6 +24,11 @@ if (process.env.NODE_ENV === "production") {
   const frontendDistPath = path.join(__dirname, "../../frontend", "dist");
   app.use(express.static(frontendDistPath));
 
+  app.use((req, res, next) => {
+    console.log("Unhandled request:", req.method, req.originalUrl);
+    next();
+  });
+
   app.get("/*", (req, res) => {
     res.sendFile(path.join(frontendDistPath, "index.html"));
   });
