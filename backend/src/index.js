@@ -1,4 +1,3 @@
-console.log("start");
 const express = require("express");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
@@ -12,11 +11,8 @@ const { app, server } = require("./lib/socket");
 
 dotenv.config();
 
-console.log("after start dotenv.config();");
-
 app.use(express.json());
 app.use(cookieParser());
-console.log("after cookieParser", { env: process.env });
 app.use(
   cors({
     origin: process.env.CLIENT_URL,
@@ -24,15 +20,8 @@ app.use(
   })
 );
 
-console.log("after cors", { env: process.env.NODE_ENV });
-
-app.use((req, res, next) => {
-  console.log("Incoming request:", req.method, req.originalUrl);
-  next();
-});
-
 if (process.env.NODE_ENV === "production") {
-  const frontendDistPath = path.join(__dirname, "../../frontend", "dist");
+  const frontendDistPath = path.join(__dirname, "../frontend", "dist");
   app.use(express.static(frontendDistPath));
 
   app.get("*", (req, res) => {
