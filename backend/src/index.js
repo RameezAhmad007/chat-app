@@ -1,3 +1,4 @@
+console.log("start");
 const express = require("express");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
@@ -11,6 +12,8 @@ const { app, server } = require("./lib/socket");
 
 dotenv.config();
 
+console.log("after start dotenv.config();");
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -21,13 +24,12 @@ app.use(
 );
 
 if (process.env.NODE_ENV === "production") {
-  const frontendDistPath = path.join(__dirname, "../../frontend", "dist");
-  app.use(express.static(frontendDistPath));
-
   app.use((req, res, next) => {
     console.log("Unhandled request:", req.method, req.originalUrl);
     next();
   });
+  const frontendDistPath = path.join(__dirname, "../../frontend", "dist");
+  app.use(express.static(frontendDistPath));
 
   app.get("/*", (req, res) => {
     res.sendFile(path.join(frontendDistPath, "index.html"));
